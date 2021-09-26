@@ -30,8 +30,6 @@ export function productsReducer(state = [], action) {
 }
 
 
-//Function: Render/visualize single product on screen, upon clicking on a product
-//from "All Products" page
 export const SINGLE_PRODUCT_REQUEST = "SINGLE_PRODUCT_REQUEST"
 
 const UPDATE_QTY_REQUEST = "UPDATE_QTY_REQUEST"
@@ -54,8 +52,9 @@ export const updateQty = (qty) => {
 export const fetchSingleProduct = (id) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get(`/api/products/${id}`)
-      dispatch(setSingleProduct(data))
+      const { data: product } = await axios.get(`/api/products/${id}`)
+      const productWithQty = {...product, quantity: product.Cart_Product.quantity}
+      dispatch(setSingleProduct(productWithQty))
     } catch (err) {
       console.log(err)
     }
@@ -67,7 +66,7 @@ export const singleProductReducer = (state = {}, action) => {
     case SINGLE_PRODUCT_REQUEST:
       return action.product;
       case UPDATE_QTY_REQUEST:
-        return {...state, qtyBags: action.qty};
+        return {...state, quantity: action.qty};
     default:
       return state
   }

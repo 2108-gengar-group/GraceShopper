@@ -94,6 +94,18 @@ router.post('/:userId', async (req, res, next) => {
   }
 });
 
+module.exports = router;
+
+
+
+
+
+
+
+
+
+
+
 
 //------------------------------------------------------------------------------------
 //@description    Updating quantity* for each product in a user's cart
@@ -154,7 +166,7 @@ router.post('/:userId', async (req, res, next) => {
 //   }
 // });
 
-module.exports = router;
+
 
 
 

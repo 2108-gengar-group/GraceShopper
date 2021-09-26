@@ -16,7 +16,6 @@ const SingleProduct = ({ match }) => {
   let user = useSelector((state) => state.auth);
   const history = useHistory();
 
-
   useEffect(() => {
     dispatch(fetchSingleProduct(match.params.id));
   }, []);
@@ -31,7 +30,7 @@ const SingleProduct = ({ match }) => {
       window.localStorage.setItem();
     } else {
       console.log("The Add To Cart Button was clicked!");
-      dispatch(addProduct(user.id, {...singleProduct, quantity: qty}));
+      dispatch(addProduct(user.id, {...singleProduct, quantity: +qty}));
       goCart();
     }
   };
@@ -45,43 +44,46 @@ const SingleProduct = ({ match }) => {
   if (!singleProduct) {
     return <h1>Loading...</h1>;
   }
-console.log("THE SINGLE PRODUCT --->", singleProduct)
+
+  console.log("THE SINGLE PRODUCTS --->", singleProduct)
 
   return (
     <>
-      <Link to="/products">Go Back</Link>
-      <h1 id="single-coffee-title">{singleProduct.name}</h1>
-      <div className="singe-coffee-container">
-        <img src={singleProduct.imageUrl} id="singe-coffee-img" />
-        <p>${singleProduct.price}</p>
-        <p>
-          {singleProduct && singleProduct.quantity > 0
-            ? "In Stock"
-            : "Out of Stock"}
-        </p>
-        <p className="dropdownMenu">
-          <label htmlFor="quantity">Quantity:</label>
-          <select
-            name="qty"
-            id="quantity"
-            key="quantity"
-            onChange={addToQuantityHandler}
-            value={singleProduct.qtyBags}
-          >
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-          </select>
-        </p>
-        <button onClick={addToCartHandler} type="button">
-          Add To Cart
-        </button>
+    <Link to="/products">Go Back</Link>
+    <h1 id="single-coffee-title">{singleProduct.name}</h1>
+    <div className="singe-coffee-container">
+      <img src={singleProduct.imageUrl} id="singe-coffee-img" />
+      <p>${singleProduct.price}</p>
+      <p>
+        {singleProduct && singleProduct.quantity > 0
+          ? "In Stock"
+          : "Out of Stock"}
+      </p>
+      <p className="dropdownMenu">
+        <label htmlFor="quantity">Quantity:</label>
+        <select
+          name="qty"
+          id="quantity"
+          key="quantity"
+          onChange={(e) => setQty(e.target.value)}
+          // value={singleProduct.qtyBags}
+        >
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
+      </p>
+      <button onClick={addToCartHandler}
+        type="button"
+        >
+        Add To Cart
+      </button>
 
-        <p>{singleProduct.description}</p>
-        <span>Rating: {singleProduct.stars}</span>
-      </div>
-    </>
+      <p>{singleProduct.description}</p>
+      <span>Rating: {singleProduct.stars}</span>
+    </div>
+  </>
   );
 };
 

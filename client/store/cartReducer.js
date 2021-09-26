@@ -23,8 +23,13 @@ const setProduct = (product) => ({
 export const fetchCart = (id) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get(`/api/cart/${id}`);
-      dispatch(setCart(data));
+      const { data: userCart } = await axios.get(`/api/cart/${id}`);
+
+      const consolidateProducts = userCart.products.map((product) => {
+        return  { ...product, quantity: product.Cart_Product.quantity }
+      })
+
+      dispatch(setCart({ ...userCart, products: consolidateProducts }));
     } catch (err) {
       console.log(err);
     }
@@ -34,13 +39,14 @@ export const fetchCart = (id) => {
 export const addProduct = (userId, product) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.post(`/api/cart/${userId}`, product);
+      const { data } = await axios.post(`/api/cart/${userId}`, {productId: product.id, quantity: product.quantity});
       dispatch(setProduct(data));
     } catch (err) {
       console.log(err);
     }
   };
 };
+
 
 export const deleteProduct = (userId, productId) => {
   return async (dispatch) => {
@@ -68,3 +74,4 @@ export const cartReducer = (state = {}, action) => {
       return state;
   }
 };
+
