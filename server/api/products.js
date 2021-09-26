@@ -34,7 +34,13 @@ router.get('/:id', async (req, res, next) => {
 				'description',
 				'price',
 				'imageUrl',
+<<<<<<< HEAD
 				'inventoryQuantity'
+=======
+				'quantity',
+				"stars",
+				"qtyBags",
+>>>>>>> a2f4b1280827b80f79aabcfaa51acc576d155076
 			]
 		});
 		res.json(product);

@@ -13,8 +13,13 @@ const seed = async () => {
       name: 'Friday Night Lattes',
       description:
         'Wind down with our 100% certified organic and non-GMO blend of Hondouran beans. This artisan blend hints at honey, caramel, and cocoa.',
+<<<<<<< HEAD
       inventoryQuantity: 10,
       price: 25.99,
+=======
+      quantity: 10,
+      price: 2599,
+>>>>>>> a2f4b1280827b80f79aabcfaa51acc576d155076
       stars: 4.0,
     });
 
@@ -22,8 +27,13 @@ const seed = async () => {
       name: 'Cult Classic',
       description:
         'Small batch roasted coffee that has a cult following stronger than qAnon. This blend has a strong but clean taste with no trace of bitterness. The organic beans are sourced from rain forests in Columbia, Guatemala and Sumatra.',
+<<<<<<< HEAD
       inventoryQuantity: 5,
       price: 29.99,
+=======
+      quantity: 5,
+      price: 2999,
+>>>>>>> a2f4b1280827b80f79aabcfaa51acc576d155076
       stars: 4.5,
     });
 
@@ -31,8 +41,13 @@ const seed = async () => {
       name: 'Brewing Trouble',
       description:
         'Feeling like you want some excitement?  Turn to these peaberry coffee beans that offer a tarty blend of acidity and sweetness guaranteed to wake you up and put a mischevious smile on your face.',
+<<<<<<< HEAD
       inventoryQuantity: 0,
       price: 27.99,
+=======
+      quantity: 0,
+      price: 2799,
+>>>>>>> a2f4b1280827b80f79aabcfaa51acc576d155076
       stars: 4.0,
     });
 

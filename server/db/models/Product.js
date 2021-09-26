@@ -27,7 +27,11 @@ const Product = db.define('product', {
   },
   stars: {
     type: Sequelize.FLOAT
-  }
+  },
+  qtyBags: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0,
+  },
 })
 
 module.exports = Product;

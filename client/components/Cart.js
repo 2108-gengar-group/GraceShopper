@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCart } from "../store/cartReducer";
+import { fetchCart, deleteProduct } from "../store/cartReducer";
 
 /**
  *Production Note - once we stay logged in. We won't need to fetch user and set auth. We should have access in hook/state.
@@ -16,40 +16,32 @@ const Cart = () => {
     const products = window.localStorage.getItem("products");
   } else {
   }
-  //find cartId to set state - array of items associated with cartID
 
   //state
+  let userId = useSelector((state) => state.auth.id) || null;
+  let thisCart = useSelector((state) => state.thisCart) || {};
 
-  /**pick one of the below as applicable once userLoggedIn status works */
-  let user = useSelector((state) => state.auth) || null;
-  let userId = useSelector((state) => state.auth.id)|| null;
-
-  console.log('this is user', user);
-  console.log('this is id', userId)
-
-  let cart = useSelector((state) => state.thisCart) || {};
+  let subtotal = thisCart.totalPrice || null;
+  let totalQuantity = thisCart.totalQty || null;
 
   //dispatch
   const dispatch = useDispatch();
 
   //componentDidMount
-
-  // non-hardcoded version
   useEffect(() => {
-    dispatch(fetchCart(userId))
-  }, [])
+    dispatch(fetchCart(userId));
+  }, []);
 
-  // useEffect(() => {
-  //   dispatch(fetchCart(2));
-  // }, []);
-
-  console.log("this is cart", cart);
-
-  let products = cart.products || [];
+  console.log("this is cart", thisCart);
+  const products = thisCart.products || [];
   console.log(products);
 
-  let subtotal = cart.totalPrice || null;
-  let totalQuantity = cart.totalQty || null;
+  //Delete Button
+  const deleteItemHandler = (event) => {
+    console.log('The delete button was clicked!');
+    console.log(event.target.name)
+    dispatch(deleteProduct(userId, event.target.name))
+  }
 
   return (
     <>
@@ -57,6 +49,7 @@ const Cart = () => {
       <div className="cart-container">
         <div className="cart-container-items">
           {products.map((product) => {
+            const cartProduct = product.Cart_Product || [];
             return (
               <div id="cart-item" key={product.id}>
                 <span>
@@ -69,12 +62,12 @@ const Cart = () => {
 
                 <span>{product.name}</span>
 
-                <span> | {product.quantity} bags |</span>
+                <span> | {cartProduct.quantityItem} bag(s) |</span>
 
-                <span> {product.price} </span>
+                <span> ${product.price} </span>
 
                 <span>
-                  <button>Remove Item</button>
+                  <button onClick = {deleteItemHandler} name = {product.id}>Remove Item</button>
                 </span>
               </div>
             );
@@ -88,7 +81,7 @@ const Cart = () => {
           <span id="cart-subtotal">Subtotal: ${subtotal}</span>
           <br />
           <button>Checkout</button>
-          <button>Empty Cart</button>
+          <button>Empty Cart - NA</button>
         </div>
       </div>
     </>

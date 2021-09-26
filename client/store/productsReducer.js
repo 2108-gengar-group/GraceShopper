@@ -34,10 +34,19 @@ export function productsReducer(state = [], action) {
 //from "All Products" page
 export const SINGLE_PRODUCT_REQUEST = "SINGLE_PRODUCT_REQUEST"
 
+const UPDATE_QTY_REQUEST = "UPDATE_QTY_REQUEST"
+
 export const setSingleProduct = (product) => {
   return {
     type: SINGLE_PRODUCT_REQUEST,
     product: product
+  }
+}
+
+export const updateQty = (qty) => {
+  return {
+    type: UPDATE_QTY_REQUEST,
+    qty,
   }
 }
 
@@ -56,7 +65,9 @@ export const fetchSingleProduct = (id) => {
 export const singleProductReducer = (state = {}, action) => {
   switch (action.type) {
     case SINGLE_PRODUCT_REQUEST:
-      return action.product
+      return action.product;
+      case UPDATE_QTY_REQUEST:
+        return {...state, qtyBags: action.qty};
     default:
       return state
   }
