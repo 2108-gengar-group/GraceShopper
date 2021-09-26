@@ -48,12 +48,14 @@ export const updateQty = (qty) => {
   }
 }
 
+// quantity: product.Cart_Product.quantity
 //Thunk - Fetching single product from axios
 export const fetchSingleProduct = (id) => {
   return async (dispatch) => {
     try {
       const { data: product } = await axios.get(`/api/products/${id}`)
-      const productWithQty = {...product, quantity: product.Cart_Product.quantity}
+      console.log("the product data --->", product)
+      const productWithQty = {...product}
       dispatch(setSingleProduct(productWithQty))
     } catch (err) {
       console.log(err)

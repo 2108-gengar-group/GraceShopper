@@ -17,6 +17,7 @@ const SingleProduct = ({ match }) => {
   const history = useHistory();
 
   useEffect(() => {
+    console.log("in the use effect for single product")
     dispatch(fetchSingleProduct(match.params.id));
   }, []);
 
