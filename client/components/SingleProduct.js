@@ -7,17 +7,15 @@ import { Link, useHistory } from "react-router-dom";
 
 //products/:productId
 const SingleProduct = ({ match }) => {
-  // = mapDispatchToProps
+  const [qty, setQty] = useState(0)
+
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector((state) => !!state.auth.id);
-  // = mapStateToProps
-  let singleProduct = useSelector((state) => state.singleProduct) || null;
-  let userId = useSelector((state) => state.auth.id) || null;
+  const isLoggedIn = useSelector((state) => state.auth);
+
+  let singleProduct = useSelector((state) => state.singleProduct);
+  let user = useSelector((state) => state.auth);
   const history = useHistory();
 
-  console.log(singleProduct);
-
-  //same as componentDidMount
 
   useEffect(() => {
     dispatch(fetchSingleProduct(match.params.id));
@@ -27,32 +25,17 @@ const SingleProduct = ({ match }) => {
     history.push("/cart");
   }
 
-  //Add Button Handler
+
   const addToCartHandler = () => {
-    //When the "add to cart" button is clicked - our cart's total quantity should increase.
-
     if (!isLoggedIn) {
-      let selectedProduct = singleProduct;
-      const currProducts = window.localStorage.products || "[]";
-      let products = JSON.parse(currProducts);
-      if (products.find((product) => product.id === singleProduct.id)) {
-        selectedProduct.qtyBags++;
-        products = products.filter(
-          (product) => product.id !== singleProduct.id
-        );
-      }
-      products = [...products, singleProduct];
-      products = JSON.stringify(products);
-
-      window.localStorage.products = products;
-      console.log("products after---->", window.localStorage.products);
+      window.localStorage.setItem();
     } else {
       console.log("The Add To Cart Button was clicked!");
-      dispatch(addProduct(userId, singleProduct));
+      dispatch(addProduct(user.id, {...singleProduct, quantity: qty}));
+      goCart();
     }
   };
 
-  //Add To Quantity Handler
   const addToQuantityHandler = (event) => {
     console.log("Customer changed quantity of the item!");
     const qty = Number(event.target.value);
@@ -62,6 +45,7 @@ const SingleProduct = ({ match }) => {
   if (!singleProduct) {
     return <h1>Loading...</h1>;
   }
+console.log("THE SINGLE PRODUCT --->", singleProduct)
 
   return (
     <>

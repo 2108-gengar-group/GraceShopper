@@ -53,7 +53,6 @@ router.put('/:userId', async (req, res, next) => {
 router.post('/:userId', async (req, res, next) => {
   try {
     let userIdReq = Number(req.params.userId);
-    const newProduct = await Product.findByPk(req.body.id);
     const userCart = await Cart.findOne({
       where: {
         orderStatus: 'UNPAID',
@@ -61,65 +60,23 @@ router.post('/:userId', async (req, res, next) => {
       },
     });
 
-    const addedItem = await userCart.addProduct(newProduct);
 
-    const updatedInfo = await Cart_Product.update(
-      { quantity: req.body.quantity, pricePerItem: req.body.price },
-      {
-        where: {
-          productId: newProduct.id,
-          cartId: userCart.id,
-        },
-      }
-    );
-    res.json(updatedInfo);
-  } catch (err) {
-    next(err);
-  }
-});
-
-
-//------------------------------------------------------------------------------------
-//@description    Updating quantity* for each product in a user's cart
-//@router         PUT/api/cart/:userId/update
-router.put('/:userId/quantity', async (req, res, next) => {
-  try {
-    const userCart = await Cart.findOne({
-      where: {
-        orderStatus: 'UNPAID',
-        userId: req.params.userId,
-      },
-    });
-
-    //Find the target product and if it is the chosen product, see if that matches
-    //with what the user selected.
     const targetProduct = await Product.findByPk(req.body.productId);
+    await userCart.addProduct(targetProduct);
+
     const cartProducts = await userCart.getProducts();
+
     const chosenProduct = cartProducts.filter(
       (product) => targetProduct.id === product.id
     )[0];
 
-    //Quantity
-    //the quantity for the item user wants to add:
-    const userQuantity = req.body.quantity;
 
-    //The quantity of items in the user's cart
-    const currentCartQuantity = chosenProduct.Cart_Product.quantity;
-    const updatedQuantity = userQuantity + currentCartQuantity;
-
-    //Feel free to comment out these console logs but it's useful to see them
-    // so you can gain a better understanding of the code / what's going on.
-    //This will print once you've made a PUT request following that URI in postman
-    console.log('THE CHOSEN PRODUCT ID--->', chosenProduct.id);
-    console.log('THE NEW QUANTITY---->', userQuantity);
-    console.log('THE CURRENT QUANTITY--->', currentCartQuantity);
-    console.log('THE UPDATED QUANTITY FOR PRODUCT--->', updatedQuantity);
-
-    //If the quantity for an item is less than zero, remove the product from cart
-    if (updatedQuantity <= 0) {
+     const userQuantity = req.body.quantity;
+     const currentCartQuantity = chosenProduct.Cart_Product.quantity;
+     const updatedQuantity = userQuantity + currentCartQuantity;
+     if (updatedQuantity <= 0) {
       await userCart.removeProduct(targetProduct);
     } else {
-      //else update the quantity row for each instance in the Cart_Product Model
       await Cart_Product.update(
         { quantity: updatedQuantity },
 
@@ -131,12 +88,71 @@ router.put('/:userId/quantity', async (req, res, next) => {
         }
       );
     }
-    //Check on Postman to see if the correct math calculated; example: ordered 3 more of Cult Classics (when I have 5 Cult Classics already in my cart) -- new total is 8 for Cult Classics
     res.json({ updatedQuantity });
   } catch (err) {
     next(err);
   }
 });
+
+
+//------------------------------------------------------------------------------------
+//@description    Updating quantity* for each product in a user's cart
+//@router         PUT/api/cart/:userId/update
+// router.put('/:userId/quantity', async (req, res, next) => {
+//   try {
+//     const userCart = await Cart.findOne({
+//       where: {
+//         orderStatus: 'UNPAID',
+//         userId: req.params.userId,
+//       },
+//     });
+
+//     //Find the target product and if it is the chosen product, see if that matches
+//     //with what the user selected.
+//     const targetProduct = await Product.findByPk(req.body.productId);
+//     const cartProducts = await userCart.getProducts();
+//     const chosenProduct = cartProducts.filter(
+//       (product) => targetProduct.id === product.id
+//     )[0];
+
+//     //Quantity
+//     //the quantity for the item user wants to add:
+//     const userQuantity = req.body.quantity;
+
+//     //The quantity of items in the user's cart
+//     const currentCartQuantity = chosenProduct.Cart_Product.quantity;
+//     const updatedQuantity = userQuantity + currentCartQuantity;
+
+//     //Feel free to comment out these console logs but it's useful to see them
+//     // so you can gain a better understanding of the code / what's going on.
+//     //This will print once you've made a PUT request following that URI in postman
+//     console.log('THE CHOSEN PRODUCT ID--->', chosenProduct.id);
+//     console.log('THE NEW QUANTITY---->', userQuantity);
+//     console.log('THE CURRENT QUANTITY--->', currentCartQuantity);
+//     console.log('THE UPDATED QUANTITY FOR PRODUCT--->', updatedQuantity);
+
+//     //If the quantity for an item is less than zero, remove the product from cart
+//     if (updatedQuantity <= 0) {
+//       await userCart.removeProduct(targetProduct);
+//     } else {
+//       //else update the quantity row for each instance in the Cart_Product Model
+//       await Cart_Product.update(
+//         { quantity: updatedQuantity },
+
+//         {
+//           where: {
+//             productId: targetProduct.id,
+//             cartId: userCart.id,
+//           },
+//         }
+//       );
+//     }
+//     //Check on Postman to see if the correct math calculated; example: ordered 3 more of Cult Classics (when I have 5 Cult Classics already in my cart) -- new total is 8 for Cult Classics
+//     res.json({ updatedQuantity });
+//   } catch (err) {
+//     next(err);
+//   }
+// });
 
 module.exports = router;
 
