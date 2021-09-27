@@ -4,7 +4,6 @@ const {
   models: { Cart, User, Product, Cart_Product },
 } = require('../db');
 
-
 //CRUD OPERATIONS [ CREATE, RETRIEVE, UPDATE, DELETE ]
 //@description     Get all items in cart for the user logged in/passed in
 //@router          GET/api/cart/:userId
@@ -46,7 +45,6 @@ router.put('/:userId', async (req, res, next) => {
   }
 });
 
-
 //------------------------------------------------------------------------------------
 //@description    Add products to cart for the user logged in/passed in
 //@router         POST/api/cart/:userId
@@ -60,7 +58,6 @@ router.post('/:userId', async (req, res, next) => {
       },
     });
 
-
     const targetProduct = await Product.findByPk(req.body.productId);
     await userCart.addProduct(targetProduct);
 
@@ -70,11 +67,10 @@ router.post('/:userId', async (req, res, next) => {
       (product) => targetProduct.id === product.id
     )[0];
 
-
-     const userQuantity = req.body.quantity;
-     const currentCartQuantity = chosenProduct.Cart_Product.quantity;
-     const updatedQuantity = userQuantity + currentCartQuantity;
-     if (updatedQuantity <= 0) {
+    const userQuantity = req.body.quantity;
+    const currentCartQuantity = chosenProduct.Cart_Product.quantity;
+    const updatedQuantity = userQuantity + currentCartQuantity;
+    if (updatedQuantity <= 0) {
       await userCart.removeProduct(targetProduct);
     } else {
       await Cart_Product.update(
@@ -95,18 +91,3 @@ router.post('/:userId', async (req, res, next) => {
 });
 
 module.exports = router;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

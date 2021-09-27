@@ -33,7 +33,7 @@ const SingleProduct = ({ match }) => {
       console.log("The Add To Cart Button was clicked!");
       //the quantity needs to be parsed or else it will change quantity
       dispatch(addProduct(user.id, {...singleProduct, quantity: +qty}));
-      // goCart();
+      goCart();
     }
   };
 
@@ -47,6 +47,7 @@ const SingleProduct = ({ match }) => {
     return <h1>Loading...</h1>;
   }
 
+  console.log("the single product--->", singleProduct)
 
   return (
     <>
