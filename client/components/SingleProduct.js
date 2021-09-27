@@ -31,6 +31,7 @@ const SingleProduct = ({ match }) => {
       window.localStorage.setItem();
     } else {
       console.log("The Add To Cart Button was clicked!");
+      //the quantity needs to be parsed or else it will change quantity
       dispatch(addProduct(user.id, {...singleProduct, quantity: +qty}));
       goCart();
     }
