@@ -25,6 +25,8 @@ const Cart = () => {
   }
 
 
+
+
   return (
     <>
       <h1 id="cart-title">Shopping Cart</h1>
@@ -60,7 +62,7 @@ const Cart = () => {
             You have {products.length} items in your cart.{" "}
           </span>
           <br />
-          <span id="cart-subtotal">Subtotal: ${cart.totalPrice}.00</span>
+          <span id="cart-subtotal">Subtotal:</span>
           <br />
           <button>Checkout</button>
           <button>Empty Cart - NA</button>

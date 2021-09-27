@@ -24,7 +24,7 @@ export const fetchCart = (id) => {
   return async (dispatch) => {
     try {
       const { data: userCart } = await axios.get(`/api/cart/${id}`);
-
+      console.log("THE USER CART --->", userCart)
       const consolidateProducts = userCart.products.map((product) => {
         return  { ...product, quantity: product.Cart_Product.quantity }
       })
