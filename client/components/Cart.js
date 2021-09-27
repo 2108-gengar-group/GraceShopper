@@ -27,11 +27,30 @@ const Cart = () => {
   }
 
 
-  console.log("the products --->", products)
+  //Cart Total Derivative Variables
+  const cart_product = products.map((product) => {
+    return product.Cart_Product
+  })
+  const productQuantity = cart_product.map((product) => {
+    return +product.quantity
+  })
+  const productPrice = products.map((product) => {
+    return +product.price
+  })
+  const subtotal = productPrice.map((price, index) => {
+      const pricePerItem = productQuantity[index] * price;
+      return pricePerItem
+  })
+  const total = subtotal.reduce((accumulator, value) => {
+    const sum = accumulator + value;
+    return +sum;
+  }, 0)
+
+
 
   return (
     <>
-    <Link to="/products">Continue Shopping</Link>
+    <Link to="/products"><strong>Continue Shopping</strong></Link>
       <h1 id="cart-title">Shopping Cart</h1>
       <div className="cart-container">
         <div className="cart-container-items">
@@ -64,9 +83,8 @@ const Cart = () => {
           <span id="cart-total-items">
             {products.length === 0 ? <h3>Your Cart is Empty...</h3> : <h3>You have {products.length} items in your cart.</h3>}
           </span>
-          <br />
-          <span id="cart-subtotal">Subtotal:</span>
-          <br />
+          <span id="cart-subtotal"><h2>Subtotal: ${ total / 100 }</h2></span>
+
           <button>Checkout</button>
           <button>Empty Cart - NA</button>
         </div>

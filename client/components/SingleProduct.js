@@ -66,6 +66,7 @@ const SingleProduct = ({ match }) => {
           id="quantity"
           key="quantity"
           onChange={(e) => setQty(e.target.value)}
+          // onChange={(e) => setQty(e.target.value)}
           // value={singleProduct.qtyBags}
         >
           <option value="0">0</option>
