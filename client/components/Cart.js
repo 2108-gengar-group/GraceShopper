@@ -28,24 +28,24 @@ const Cart = () => {
 
 
   //Cart Total Derivative Variables
-  const cart_products = products.map((product) => {
-    return product.Cart_Product
+  const cartProductQuantity = products.map((product) => {
+    return product.Cart_Product.quantity
   })
-  console.log("the cartproducts--->", cart_products)
-  // const productQuantity = cart_product.map((product) => {
-  //   return product.quantity
-  // })
-  // const productPrice = products.map((product) => {
-  //   return product.price
-  // })
-  // const subtotal = productPrice.map((price, index) => {
-  //     const pricePerItem = productQuantity[index] * price;
-  //     return pricePerItem
-  // })
-  // const total = subtotal.reduce((accumulator, value) => {
-  //   const sum = accumulator + value;
-  //   return sum;
-  // }, 0)
+  console.log("the quantity--->", cartProductQuantity)
+
+  // console.log("productQuantity--->", productQuantity)
+  const productPrice = products.map((product) => {
+    return product.price
+  })
+  const subtotal = productPrice.map((price, index) => {
+      const pricePerItem = cartProductQuantity[index] * price;
+      return pricePerItem
+  })
+  const total = subtotal.reduce((accumulator, value) => {
+    const sum = accumulator + value;
+    return sum;
+  }, 0)
+  console.log("the total --->", total)
 
 
 
@@ -84,7 +84,7 @@ const Cart = () => {
           <span id="cart-total-items">
             {products.length === 0 ? <h3>Your Cart is Empty...</h3> : <h3>You have {products.length} items in your cart.</h3>}
           </span>
-          <span id="cart-subtotal"><h2>Subtotal:</h2></span>
+          <span id="cart-subtotal"><h2>Subtotal: ${ total / 100} </h2></span>
 
           <button>Checkout</button>
           <button>Empty Cart - NA</button>
