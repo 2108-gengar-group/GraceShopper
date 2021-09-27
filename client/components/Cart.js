@@ -2,10 +2,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCart, deleteProduct } from "../store/cartReducer";
+import { Link } from "react-router-dom"
 
 const Cart = () => {
   const user = useSelector((state) => state.auth);
   const cart = useSelector((state) => state.thisCart);
+
     //dispatch
     const dispatch = useDispatch();
 
@@ -25,10 +27,11 @@ const Cart = () => {
   }
 
 
-
+  console.log("the products --->", products)
 
   return (
     <>
+    <Link to="/products">Continue Shopping</Link>
       <h1 id="cart-title">Shopping Cart</h1>
       <div className="cart-container">
         <div className="cart-container-items">
@@ -59,7 +62,7 @@ const Cart = () => {
         </div>
         <div className="cart-totals">
           <span id="cart-total-items">
-            You have {products.length} items in your cart.{" "}
+            {products.length === 0 ? <h3>Your Cart is Empty...</h3> : <h3>You have {products.length} items in your cart.</h3>}
           </span>
           <br />
           <span id="cart-subtotal">Subtotal:</span>
