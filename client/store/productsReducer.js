@@ -54,9 +54,7 @@ export const fetchSingleProduct = (id) => {
   return async (dispatch) => {
     try {
       const { data: product } = await axios.get(`/api/products/${id}`)
-      console.log("the product data --->", product)
       const productWithQty = {...product}
-      console.log("the product with quantity--->", productWithQty)
       dispatch(setSingleProduct(productWithQty))
     } catch (err) {
       console.log(err)

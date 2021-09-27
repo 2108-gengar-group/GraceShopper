@@ -18,7 +18,7 @@ const Cart = () => {
   }, [user]);
 
   const products = cart.products || [];
-
+  console.log('cart products --->', products)
   //Delete Button
   const deleteItemHandler = (event) => {
     console.log('The delete button was clicked!');
@@ -29,11 +29,8 @@ const Cart = () => {
 
   //Cart Total Derivative Variables
   const cartProductQuantity = products.map((product) => {
-    return product.Cart_Product.quantity
+    return product.quantity
   })
-  console.log("the quantity--->", cartProductQuantity)
-
-  // console.log("productQuantity--->", productQuantity)
   const productPrice = products.map((product) => {
     return product.price
   })
@@ -69,7 +66,7 @@ const Cart = () => {
 
                 <span>{product.name}</span>
 
-                <span> | {product.Cart_Product ? product.Cart_Product.quantity : 0} bag(s) |</span>
+                <span> | {product.Cart_Product ? product.quantity : 0} bag(s) |</span>
 
                 <span> ${ product.price / 100 } </span>
 

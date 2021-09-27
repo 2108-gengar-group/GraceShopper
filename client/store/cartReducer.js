@@ -24,11 +24,10 @@ export const fetchCart = (id) => {
   return async (dispatch) => {
     try {
       const { data: userCart } = await axios.get(`/api/cart/${id}`);
-      console.log("THE USER CART --->", userCart)
+      //moves the through tables property into the actual product (from the products array)
       const consolidateProducts = userCart.products.map((product) => {
         return  { ...product, quantity: product.Cart_Product.quantity }
       })
-
       dispatch(setCart({ ...userCart, products: consolidateProducts }));
     } catch (err) {
       console.log(err);
