@@ -164,3 +164,11 @@ form div {
   width: 100px;
   height: 100px;
 }
+
+#my-cart{
+  font-size: 5rem;
+  font-family: "Garamound";
+  font-weight: bold;
+  justify-content: center;
+
+}

@@ -20,33 +20,28 @@ const Cart = () => {
     history.push("/cart");
   };
   //state
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.auth);
   const cart = useSelector((state) => state.thisCart);
 
+  useEffect(() => {
+    if (user !== null) {
+      dispatch(fetchCart(user.id));
+    }
+  }, [user]);
+
   //componentDidMount
   if (user && user.id) {
-    
     //dispatch
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-      if (user !== null) {
-        dispatch(fetchCart(user.id));
-      }
-    }, [user]);
-
     const products = cart.products || [];
-    console.log("cart products --->", products);
     //Delete Button
     const deleteItemHandler = (event) => {
-      console.log("The delete button was clicked!");
-      console.log(event.target.name);
       dispatch(deleteProduct(user.id, event.target.name));
       goCart();
     };
     //Cart Total Derivative Variables
     const cartProductQuantity = products.map((product) => {
-      return product.quantity;
+      return product.Cart_Product.quantity;
     });
     const productPrice = products.map((product) => {
       return product.price;
@@ -59,7 +54,7 @@ const Cart = () => {
       const sum = accumulator + value;
       return sum;
     }, 0);
-    console.log("the total --->", total);
+
     return (
       <>
         <Link to="/products">
@@ -69,8 +64,6 @@ const Cart = () => {
         <div className="cart-container">
           <div className="cart-container-items">
             {products.map((product) => {
-              const cartProduct = product.Cart_Product;
-              // || [];
               return (
                 <div id="cart-item" key={product.id}>
                   <span>
@@ -83,8 +76,7 @@ const Cart = () => {
                   <span>{product.name}</span>
 
                   <span>
-                    {" "}
-                    | {product.Cart_Product ? product.quantity : 0} bag(s) |
+                    | {product.Cart_Product ? product.Cart_Product.quantity : 0} bag(s) |
                   </span>
                   <span> ${product.price / 100} </span>
 

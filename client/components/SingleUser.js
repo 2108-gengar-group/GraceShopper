@@ -23,7 +23,8 @@ const Me = () => {
       <h3>
         <span>Email: </span> {user.email}
       </h3>
-      <h3>Orders</h3>
+      <Link id = "my-cart" to="/cart">Go to my cart</Link>
+      
     </div>
   );
 };
