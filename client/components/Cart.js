@@ -73,7 +73,7 @@ const Cart = () => {
     return (
       <>
         <Link to="/products">
-          <strong>Continue Shopping</strong>
+          <strong id="continue-shopping">Continue Shopping</strong>
         </Link>
         <h1 id="cart-title">Shopping Cart</h1>
         <div className="cart-container">

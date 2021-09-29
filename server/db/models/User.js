@@ -41,7 +41,7 @@ const User = db.define('user', {
   },
   imageUrl: {
     type: Sequelize.TEXT,
-    defaultValue: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6a9665EGAgcW_DnpNxhW0tQIzX0FpghbyIQ&usqp=CAU"
+    defaultValue: 'https://i.imgur.com/aNxqxjb.jpeg'
   }
 })
 

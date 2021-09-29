@@ -14,7 +14,7 @@ const Me = () => {
   }, []);
 
   return (
-    <div>
+    <div className = "single-user-container">
       <img src={user.imageUrl} width="300" height="200"></img>
       <h3>
         <span>Name: </span>

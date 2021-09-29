@@ -10,7 +10,7 @@ const Home = () => {
   if (user) {
     return (
       <div>
-        <h3>Welcome, {user.username}</h3>
+        <h3 id="welcome">Welcome, {user.username}</h3>
       </div>
     );
   } else {
