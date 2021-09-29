@@ -1,0 +1,20 @@
+#landing-text {
+  display: absolute;
+  top: 500px;
+  font-size: 100px;
+  text-align: center;
+  text-shadow: 5px 5px rgb(241, 239, 239);
+}
+
+.home-image {
+  height: auto;
+  width: 100%
+}
+
+
+
+
+
+
+
+/* <div class="bg-pos-center bg-size-cover h-bg-450 h-bg-550-ns h-bg-680-xl h-bg-830-xxl tc h-bg-200" style="background-image: url(https://blue-bottle-cms.global.ssl.fastly.net/hbhhv9rz9/image/upload/v1632873419/guqrxpyvr0lscp4jdlor.jpg)"><div class="dn dt-ns wi-100 mw-container u-center h-100 ph20 ph0-l" style="text-align: left; color: #555555"><div class="dtc v-mid"><div class="uppercase f6 bold ls-1-5">Coffee from Around the World, with Shipping on Us</div><h1 class="lh-title f3 f1-ns mw6 dib mb0">Celebrating International Coffee Day</h1><div class="mt15 mt20-ns"><a class="primary-btn btn-15-30 dib" href="https://bluebottlecoffee.com/store/coffee">Shop Now </a></div></div></div></div> */

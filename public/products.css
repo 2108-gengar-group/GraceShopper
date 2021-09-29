@@ -1,0 +1,37 @@
+.all-coffee-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 70%;
+  margin: auto;
+}
+
+#all-coffee-title {
+  margin-left: 10px;
+}
+
+.coffee-item {
+  box-shadow: 3px 3px 10px rgb(205, 205, 205);
+  margin: 1rem;
+  border-radius: 5px;
+  background-color: rgba(238, 238, 238, 0.774);
+  text-decoration: none;
+}
+
+.product-detail {
+  text-align: center;
+}
+
+.product-detail p {
+  font-weight: bold;
+  font-size: medium;
+}
+
+.product-detail span {
+  margin-bottom: 1rem;
+}
+.product-link {
+  text-decoration: none;
+}
+/* justify content and space between for nav bar container */

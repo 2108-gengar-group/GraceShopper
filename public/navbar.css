@@ -1,0 +1,17 @@
+nav a {
+  display: inline-block;
+  margin: 1em;
+}
+
+/* #nav-container-logged-in {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#nav-container-logged-out {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+} */
+
